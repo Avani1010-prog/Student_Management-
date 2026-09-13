@@ -337,13 +337,13 @@ Upcoming:
 
 ## 👨‍💻 Maintainer
 
-Saurabh Mishra
+Avani Pandey
 
 B.Tech Computer Science Engineering
 
-GitHub: https://github.com/pixelsaurabh
+GitHub: https://github.com/Avani1010-prog/Student_Management-
 
-LinkedIn: https://www.linkedin.com/in/pixelsaurabh575
+LinkedIn: https://www.linkedin.com/in/connect-to-avani-pandey/
 
 ---
 
