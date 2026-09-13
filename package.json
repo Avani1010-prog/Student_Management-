@@ -5,8 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build": "npm install",
     "dev": "node --watch server.js",
     "init-db": "node database/init_db.js"
+  },
+  "engines": {
+    "node": ">=20.0.0 <=22.x"
   },
   "keywords": [
     "erp",
