@@ -4,12 +4,12 @@ const db = require('../../../config/db');
 const teacherService = require('../services/teacherService');
 const studentService = require('../services/studentService');
 
-// GET /login
-router.get('/login', (req, res) => {
-    if (req.session.logged_in) {
+// GET / and /login - Opens Login Page by default
+router.get(['/', '/login'], (req, res) => {
+    if (req.session && req.session.logged_in) {
         if (req.session.user_role === 'teacher') return res.redirect('/teacher/dashboard');
         if (req.session.user_role === 'student') return res.redirect('/student/dashboard');
-        return res.redirect('/');
+        if (req.session.user_role === 'admin') return res.redirect('/dashboard');
     }
     res.render('auth/login', { error: null });
 });
@@ -27,7 +27,7 @@ router.post('/login', (req, res) => {
             req.session.user_role = 'admin';
             req.session.admin_email = admin.email;
             req.session.admin_name = admin.name;
-            return res.redirect('/');
+            return res.redirect('/dashboard');
         }
     } else if (selectedRole === 'teacher') {
         const teacher = teacherService.checkTeacherLogin(login_identifier, password);

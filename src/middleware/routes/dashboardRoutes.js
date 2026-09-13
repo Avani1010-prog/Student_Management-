@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { requireAuth } = require('../authMiddleware');
+const { requireRole } = require('../authMiddleware');
 const { getStudentCount } = require('../services/studentService');
 const { getTeacherCount } = require('../services/teacherService');
 const { getDepartmentCount, getSubjectCount } = require('../services/departmentSubjectService');
 const { getTodayAttendanceCount } = require('../services/attendanceService');
 
-router.get('/', requireAuth, (req, res) => {
+// Admin Dashboard
+router.get(['/dashboard', '/admin/dashboard'], requireRole('admin'), (req, res) => {
     const studentCount = getStudentCount();
     const teacherCount = getTeacherCount();
     const departmentCount = getDepartmentCount();

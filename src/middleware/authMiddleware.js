@@ -14,7 +14,7 @@ function requireRole(role) {
             req.flash('warning', 'Access Denied: You do not have permission to view this page.');
             if (req.session.user_role === 'teacher') return res.redirect('/teacher/dashboard');
             if (req.session.user_role === 'student') return res.redirect('/student/dashboard');
-            return res.redirect('/');
+            return res.redirect('/dashboard');
         }
         next();
     };
@@ -29,7 +29,7 @@ function requireAnyRole(roles) {
             req.flash('warning', 'Access Denied: You do not have permission to view this page.');
             if (req.session.user_role === 'teacher') return res.redirect('/teacher/dashboard');
             if (req.session.user_role === 'student') return res.redirect('/student/dashboard');
-            return res.redirect('/');
+            return res.redirect('/dashboard');
         }
         next();
     };
