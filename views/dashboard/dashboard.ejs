@@ -1,0 +1,74 @@
+<%- include('../components/header.ejs') %>
+<%- include('../components/sidebar.ejs') %>
+
+<div class="main-wrapper">
+  <%- include('../components/navbar.ejs') %>
+
+  <main class="content">
+    <% if (messages && messages.success) { %>
+      <div class="alert alert-success alert-dismissible fade show mb-4"><%= messages.success %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    <% } %>
+    <% if (messages && messages.warning) { %>
+      <div class="alert alert-warning alert-dismissible fade show mb-4"><%= messages.warning %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    <% } %>
+
+    <div class="welcome-card erp-card">
+      <div>
+        <h2>👋 Welcome Back, <%= admin_name %></h2>
+        <p>Smart ERP Attendance Powered by Node.js & Express with Face Recognition & QR Verification</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="erp-card stat-card">
+        <i class="bi bi-people-fill text-primary fs-1 mb-2"></i>
+        <h5>Total Students</h5>
+        <h2><%= stats.students %></h2>
+      </div>
+
+      <div class="erp-card stat-card">
+        <i class="bi bi-person-workspace text-success fs-1 mb-2"></i>
+        <h5>Faculty / Teachers</h5>
+        <h2><%= stats.teachers %></h2>
+      </div>
+
+      <div class="erp-card stat-card">
+        <i class="bi bi-journal-bookmark-fill text-info fs-1 mb-2"></i>
+        <h5>Subjects Enrolled</h5>
+        <h2><%= stats.subjects %></h2>
+      </div>
+
+      <div class="erp-card stat-card">
+        <i class="bi bi-person-check-fill text-warning fs-1 mb-2"></i>
+        <h5>Today's Attendance</h5>
+        <h2><%= stats.todayAttendance %> (<%= stats.attendanceRate %>%)</h2>
+      </div>
+    </div>
+
+    <div class="dashboard-row">
+      <div class="erp-card">
+        <h4 class="section-title">Quick Actions</h4>
+        <div class="quick-actions">
+          <a href="/register" class="btn-primary-custom">Register Student</a>
+          <a href="/teachers/register" class="btn-primary-custom">Register Teacher</a>
+          <a href="/subjects" class="btn-primary-custom">Manage Subjects</a>
+          <a href="/attendance" class="btn-primary-custom">Take Attendance</a>
+          <a href="/qr" class="btn-primary-custom">QR Verification</a>
+          <a href="/reports" class="btn-primary-custom">Reports & CSV Export</a>
+        </div>
+      </div>
+
+      <div class="erp-card">
+        <h4 class="section-title">System Status & Integration</h4>
+        <ul class="activity-list">
+          <li>✔ Backend migrated to Express & Node.js Engine.</li>
+          <li>✔ SQLite DB connection active.</li>
+          <li>✔ AI Face Recognition Python Bridge configured.</li>
+          <li>✔ Real-Time QR Scanner active.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../components/footer.ejs') %>
+</div>

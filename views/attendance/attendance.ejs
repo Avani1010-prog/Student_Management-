@@ -1,0 +1,131 @@
+<%- include('../components/header.ejs') %>
+<%- include('../components/sidebar.ejs') %>
+
+<div class="main-wrapper">
+  <%- include('../components/navbar.ejs') %>
+
+  <main class="content">
+    <% if (messages && messages.success) { %>
+      <div class="alert alert-success alert-dismissible fade show mb-4"><%= messages.success %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    <% } %>
+    <% if (messages && messages.warning) { %>
+      <div class="alert alert-warning alert-dismissible fade show mb-4"><%= messages.warning %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    <% } %>
+
+    <div class="student-header mb-4">
+      <div class="header-info">
+        <h2>Attendance Management</h2>
+        <p>Mark student attendance manually, view log history, or trigger AI Face Recognition (Version 0.8 & 0.9).</p>
+      </div>
+    </div>
+
+    <!-- Action Cards -->
+    <div class="row g-4 mb-4">
+      <!-- Manual Mark Card -->
+      <div class="col-lg-7">
+        <div class="erp-card">
+          <h4><i class="bi bi-pencil-square text-primary me-2"></i> Mark Manual Attendance</h4>
+          <form action="/attendance/mark" method="POST" class="mt-3">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Select Student</label>
+                <select name="student_id" class="form-select" required>
+                  <option value="">-- Choose Student --</option>
+                  <% students.forEach(student => { %>
+                    <option value="<%= student.student_id %>"><%= student.name %> (<%= student.university_roll_number %>)</option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Subject</label>
+                <select name="subject_code" class="form-select" required>
+                  <% subjects.forEach(sub => { %>
+                    <option value="<%= sub.code %>"><%= sub.name %> (<%= sub.code %>)</option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select">
+                  <option value="Present" selected>Present</option>
+                  <option value="Absent">Absent</option>
+                  <option value="Late">Late</option>
+                </select>
+              </div>
+              <div class="col-md-6 d-flex align-items-end">
+                <button type="submit" class="btn-primary-custom w-100"><i class="bi bi-check-circle me-1"></i> Mark Attendance</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- AI Face Rec Card -->
+      <div class="col-lg-5">
+        <div class="erp-card bg-light border text-center h-100 d-flex flex-column justify-content-center p-4">
+          <i class="bi bi-camera-fill text-primary display-4 mb-2"></i>
+          <h4>AI Face Recognition</h4>
+          <p class="text-muted small">Launch Python OpenCV webcam detector to recognize students and auto-log attendance.</p>
+          <form action="/attendance/trigger-face-rec" method="POST">
+            <button type="submit" class="btn btn-outline-primary btn-lg w-100 mt-2">
+              <i class="bi bi-play-circle-fill me-2"></i> Launch Face Rec Camera
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance Logs Section -->
+    <div class="erp-card">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4><i class="bi bi-journal-text me-2"></i> Attendance Log Records</h4>
+        <form action="/attendance" method="GET" class="d-flex gap-2">
+          <input type="date" name="date" class="form-control form-control-sm" value="<%= filterDate %>" onchange="this.form.submit()">
+        </form>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Roll Number</th>
+              <th>Student Name</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Verification Mode</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (attendanceLogs && attendanceLogs.length > 0) { %>
+              <% attendanceLogs.forEach(log => { %>
+                <tr>
+                  <td>#<%= log.id %></td>
+                  <td><strong><%= log.university_roll_number %></strong></td>
+                  <td><%= log.student_name %></td>
+                  <td><span class="badge bg-secondary"><%= log.subject_code %></span></td>
+                  <td><%= log.date %></td>
+                  <td><%= log.time %></td>
+                  <td>
+                    <span class="badge <%= log.verification_mode === 'AI Face Rec' ? 'bg-info text-dark' : (log.verification_mode === 'QR Code' ? 'bg-success' : 'bg-primary') %>">
+                      <%= log.verification_mode %>
+                    </span>
+                  </td>
+                  <td><span class="badge bg-success">Present</span></td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="8" class="text-center py-4 text-muted">No attendance marked for date <%= filterDate %>.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../components/footer.ejs') %>
+</div>

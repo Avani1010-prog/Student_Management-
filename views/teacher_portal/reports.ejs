@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher | Student Reports & Editor</title>
+    <link rel="icon" type="image/png" href="/images/logo/camp-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand font-weight-bold me-3" href="/teacher/dashboard">
+                    <i class="bi bi-arrow-left me-2"></i> Teacher Portal
+                </a>
+                <span class="navbar-text text-white d-none d-md-inline">Student Reports & Log Editor</span>
+            </div>
+            <a href="/logout" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right me-1"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <% if (messages && messages.success) { %>
+            <div class="alert alert-success alert-dismissible fade show"><%= messages.success %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        <% } %>
+        <% if (messages && messages.warning) { %>
+            <div class="alert alert-warning alert-dismissible fade show"><%= messages.warning %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        <% } %>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-1"><i class="bi bi-journal-check text-success me-2"></i> Student Attendance Reports</h4>
+                    <p class="text-muted mb-0">View student attendance logs and edit/update records as authorized faculty.</p>
+                </div>
+                <a href="/reports/export/csv?date=<%= filterDate %>" class="btn btn-outline-success">
+                    <i class="bi bi-file-earmark-spreadsheet-fill me-1"></i> Export CSV
+                </a>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Logs Record List</h5>
+                    <form action="/teacher/reports" method="GET" class="d-flex align-items-center gap-2">
+                        <label class="form-label mb-0 small">Select Date:</label>
+                        <input type="date" name="date" class="form-control form-control-sm" value="<%= filterDate %>" onchange="this.form.submit()">
+                    </form>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>Roll Number</th>
+                                <th>Student Name</th>
+                                <th>Subject</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                                <th class="text-end">Edit Report</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (attendanceLogs && attendanceLogs.length > 0) { %>
+                                <% attendanceLogs.forEach(log => { %>
+                                    <tr>
+                                        <td>#<%= log.id %></td>
+                                        <td><strong><%= log.university_roll_number %></strong></td>
+                                        <td><%= log.student_name %></td>
+                                        <td><span class="badge bg-secondary"><%= log.subject_code %></span></td>
+                                        <td><%= log.time %></td>
+                                        <td>
+                                            <span class="badge bg-<%= log.status === 'Present' ? 'success' : (log.status === 'Late' ? 'warning text-dark' : 'danger') %>">
+                                                <%= log.status %>
+                                            </span>
+                                        </td>
+                                        <td><small class="text-muted"><%= log.remarks || 'None' %></small></td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editReportModal"
+                                                    data-id="<%= log.id %>"
+                                                    data-name="<%= log.student_name %>"
+                                                    data-status="<%= log.status %>"
+                                                    data-remarks="<%= log.remarks %>">
+                                                <i class="bi bi-pencil-square"></i> Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr><td colspan="8" class="text-center text-muted py-4">No records found for <%= filterDate %>.</td></tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Report Modal -->
+    <div class="modal fade" id="editReportModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/teacher/reports/update" method="POST">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title"><i class="bi bi-pencil-fill me-2"></i> Edit Student Report</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editLogId" name="attendance_id">
+                        <div class="mb-3">
+                            <label class="form-label">Student Name</label>
+                            <input type="text" id="editStudentName" class="form-control" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Attendance Status</label>
+                            <select id="editStatus" name="status" class="form-select" required>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Late">Late</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Teacher Remarks / Reason</label>
+                            <input type="text" id="editRemarks" name="remarks" class="form-control" placeholder="e.g. Medical leave approved">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Report Record</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const editModal = document.getElementById('editReportModal');
+        editModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            document.getElementById('editLogId').value = button.getAttribute('data-id');
+            document.getElementById('editStudentName').value = button.getAttribute('data-name');
+            document.getElementById('editStatus').value = button.getAttribute('data-status');
+            document.getElementById('editRemarks').value = button.getAttribute('data-remarks') || '';
+        });
+    </script>
+</body>
+</html>

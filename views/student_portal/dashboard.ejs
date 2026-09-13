@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | CAMP ERP</title>
+    <link rel="icon" type="image/png" href="/images/logo/camp-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .mobile-card { border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .gradient-header { background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white; border-radius: 0 0 24px 24px; }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Mobile Top Header -->
+    <div class="gradient-header p-4 mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <% if (student.photo_url && student.photo_url !== '') { %>
+                    <img src="<%= student.photo_url %>" alt="Face ID" class="rounded-circle border border-2 border-white shadow me-3" style="width: 58px; height: 58px; object-fit: cover;" />
+                <% } else { %>
+                    <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center me-3 shadow" style="width: 58px; height: 58px; font-size: 1.6rem;">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                <% } %>
+                <div>
+                    <h3 class="mb-0 font-weight-bold">🎓 Hello, <%= student.name %></h3>
+                    <small>Roll No: <strong><%= student.university_roll_number %></strong> | <%= student.branch %></small>
+                </div>
+            </div>
+            <a href="/logout" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <% if (messages && messages.success) { %>
+            <div class="alert alert-success alert-dismissible fade show mb-4"><i class="bi bi-check-circle-fill me-2"></i><%= messages.success %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        <% } %>
+        <% if (messages && messages.warning) { %>
+            <div class="alert alert-warning alert-dismissible fade show mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i><%= messages.warning %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        <% } %>
+
+        <!-- Attendance Stats Card -->
+        <div class="card mobile-card border-0 bg-white p-4 mb-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-muted mb-1">Your Attendance Rate</h6>
+                    <h1 class="display-4 font-weight-bold text-primary mb-0"><%= stats.percentage %>%</h1>
+                    <small class="text-muted"><%= stats.presentDays %> Present out of <%= stats.totalDays %> classes logged</small>
+                </div>
+                <div class="p-3 bg-light rounded-circle text-primary">
+                    <i class="bi bi-pie-chart-fill display-5"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <h5 class="mb-3"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Student Actions</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4 col-6">
+                <a href="/student/scan-qr" class="card mobile-card border-0 bg-primary text-white text-center p-3 text-decoration-none h-100">
+                    <i class="bi bi-qr-code-scan display-4 mb-2"></i>
+                    <h6 class="mb-0 font-weight-bold">Scan QR Code</h6>
+                    <small>Class Attendance</small>
+                </a>
+            </div>
+            <div class="col-md-4 col-6">
+                <a href="/student/capture-photo" class="card mobile-card border-0 bg-dark text-white text-center p-3 text-decoration-none h-100 position-relative">
+                    <% if (student.photo_url && student.photo_url !== '') { %>
+                        <div class="position-relative d-inline-block mx-auto mb-2">
+                            <img src="<%= student.photo_url %>" alt="Face ID" class="rounded-circle border border-2 border-success" style="width: 56px; height: 56px; object-fit: cover;" />
+                            <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success p-1">
+                                <i class="bi bi-check-lg text-white" style="font-size: 0.75rem;"></i>
+                            </span>
+                        </div>
+                        <h6 class="mb-0 font-weight-bold">Face ID Photo</h6>
+                        <small class="text-white-50 d-block mb-2">Click to Update</small>
+                        <div>
+                            <button type="button" class="btn btn-outline-danger btn-sm py-1 px-2" style="font-size: 0.78rem;" onclick="deleteFacePhoto(event)">
+                                <i class="bi bi-trash3 me-1"></i> Delete Face ID
+                            </button>
+                        </div>
+                    <% } else { %>
+                        <i class="bi bi-camera-fill display-4 mb-2 text-warning"></i>
+                        <h6 class="mb-0 font-weight-bold">Face ID Photo</h6>
+                        <small class="text-warning"><i class="bi bi-exclamation-circle me-1"></i> Enroll Face Recognition</small>
+                    <% } %>
+                </a>
+            </div>
+            <div class="col-md-4 col-12">
+                <a href="/student/reports" class="card mobile-card border-0 bg-success text-white text-center p-3 text-decoration-none h-100">
+                    <i class="bi bi-journal-check display-4 mb-2"></i>
+                    <h6 class="mb-0 font-weight-bold">View Reports</h6>
+                    <small>Teacher Logs & Updates</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- Attendance History Table preview -->
+        <div class="card mobile-card border-0 bg-white p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title mb-0"><i class="bi bi-history me-2"></i> Recent Attendance Records</h5>
+                <a href="/student/reports" class="btn btn-sm btn-outline-primary">View Full Report</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Teacher Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (history && history.length > 0) { %>
+                            <% history.slice(0, 5).forEach(h => { %>
+                                <tr>
+                                    <td><%= h.date %></td>
+                                    <td><span class="badge bg-secondary"><%= h.subject_code %></span></td>
+                                    <td><span class="badge bg-<%= h.status === 'Present' ? 'success' : (h.status === 'Late' ? 'warning text-dark' : 'danger') %>"><%= h.status %></span></td>
+                                    <td><small class="text-muted"><%= h.remarks || 'No remarks' %></small></td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr><td colspan="4" class="text-center text-muted py-3">No attendance recorded yet.</td></tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function deleteFacePhoto(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (!confirm('Kya aap sach me apni Face ID photo delete karna chahte hain?')) {
+                return;
+            }
+
+            try {
+                const res = await fetch('/student/api/delete-photo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('✅ ' + data.message);
+                    window.location.reload();
+                } else {
+                    alert('❌ ' + (data.message || 'Error deleting photo'));
+                }
+            } catch (err) {
+                alert('❌ Network error while deleting photo');
+            }
+        }
+    </script>
+</body>
+</html>

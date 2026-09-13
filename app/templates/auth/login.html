@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CAMP | Administrator Login</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/logo/camp-logo.png') }}"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Base CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base/variables.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base/base.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base/typography.css') }}"
+    />
+
+    <!-- Components -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components/buttons.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components/forms.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components/cards.css') }}"
+    />
+
+    <!-- Page Specific -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/pages/login.css') }}"
+    />
+  </head>
+
+  <body>
+    <main class="login-page">
+      <div class="overlay"></div>
+
+      <div class="login-container">
+        <div class="login-card">
+          <div class="logo-section">
+            <div class="logo-circle">
+              <i class="bi bi-mortarboard-fill"></i>
+            </div>
+
+            <h2>CAMP</h2>
+
+            <p>College Attendance Management Portal</p>
+          </div>
+
+          <h4 class="text-center mb-4">Administrator Login</h4>
+
+          {% if error %}
+
+          <div class="alert alert-danger">{{ error }}</div>
+
+          {% endif %}
+          <form id="loginForm" method="POST" novalidate>
+            <div class="mb-3">
+              <label class="form-label"> Email Address </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              />
+
+              <small class="error-message" id="emailError"> </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label"> Password </label>
+
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="password-toggle"
+                >
+                  <i id="passwordIcon" class="bi bi-eye"> </i>
+                </button>
+              </div>
+
+              <small class="error-message" id="passwordError"> </small>
+            </div>
+
+            <div class="d-flex justify-content-between mb-4">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="rememberMe"
+                />
+
+                <label class="form-check-label" for="rememberMe">
+                  Remember Me
+                </label>
+              </div>
+
+              <a href="#"> Forgot Password? </a>
+            </div>
+
+            <button type="submit" class="btn-login w-100" id="loginButton">
+              <span class="btn-text"> LOGIN </span>
+
+              <span
+                class="spinner-border spinner-border-sm d-none"
+                id="loginSpinner"
+                aria-hidden="true"
+              >
+              </span>
+            </button>
+          </form>
+
+          <div class="copyright">© 2026 CAMP</div>
+        </div>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+  </body>
+</html>

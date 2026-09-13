@@ -1,0 +1,59 @@
+<aside class="sidebar">
+  <!-- Header -->
+  <div class="sidebar-header">
+    <div class="logo">
+      <i class="bi bi-mortarboard-fill"></i>
+    </div>
+    <h3>CAMP</h3>
+    <p>College Attendance Management Portal</p>
+  </div>
+
+  <!-- Scrollable Menu -->
+  <nav class="sidebar-menu">
+    <a href="/" class="menu-item <%= active_page === 'dashboard' ? 'active' : '' %>">
+      <i class="bi bi-speedometer2"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a href="/students" class="menu-item <%= active_page === 'students' ? 'active' : '' %>">
+      <i class="bi bi-people-fill"></i>
+      <span>Students</span>
+    </a>
+
+    <a href="/teachers" class="menu-item <%= active_page === 'teachers' ? 'active' : '' %>">
+      <i class="bi bi-person-workspace"></i>
+      <span>Teachers</span>
+    </a>
+
+    <a href="/subjects" class="menu-item <%= active_page === 'subjects' ? 'active' : '' %>">
+      <i class="bi bi-journal-bookmark-fill"></i>
+      <span>Subjects & Depts</span>
+    </a>
+
+    <a href="/attendance" class="menu-item <%= active_page === 'attendance' ? 'active' : '' %>">
+      <i class="bi bi-camera-video-fill"></i>
+      <span>Attendance</span>
+    </a>
+
+    <a href="/qr" class="menu-item <%= active_page === 'qr' ? 'active' : '' %>">
+      <i class="bi bi-qr-code-scan"></i>
+      <span>QR Verification</span>
+    </a>
+
+    <a href="/reports" class="menu-item <%= active_page === 'reports' ? 'active' : '' %>">
+      <i class="bi bi-bar-chart-fill"></i>
+      <span>Reports</span>
+    </a>
+  </nav>
+
+  <!-- Fixed Bottom Area -->
+  <div class="sidebar-bottom">
+    <a href="/logout" class="menu-item">
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Logout</span>
+    </a>
+    <div class="sidebar-footer">
+      <small>Node.js Edition v1.0</small>
+    </div>
+  </div>
+</aside>

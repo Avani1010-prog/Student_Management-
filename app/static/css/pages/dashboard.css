@@ -1,0 +1,143 @@
+/* ======================================
+   Dashboard Layout
+====================================== */
+
+.welcome-card{
+    margin-bottom:30px;
+}
+
+.welcome-card h2{
+    margin-bottom:10px;
+    font-size:2rem;
+    font-weight:700;
+}
+
+.welcome-card p{
+    color:var(--text-secondary);
+}
+
+/* ======================================
+   Statistics
+====================================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,minmax(220px,1fr));
+
+    gap:24px;
+
+    margin-bottom:30px;
+
+}
+
+.stat-card{
+
+    text-align:center;
+
+}
+
+.stat-card i{
+
+    font-size:40px;
+
+    color:var(--primary-color);
+
+    margin-bottom:15px;
+
+}
+
+.stat-card h5{
+
+    margin-bottom:12px;
+
+    color:var(--text-secondary);
+
+}
+
+.stat-card h2{
+
+    color:var(--primary-color);
+
+    font-size:2.3rem;
+
+}
+
+/* ======================================
+   Dashboard Bottom
+====================================== */
+
+.dashboard-row{
+
+    display:grid;
+
+    grid-template-columns:1.5fr 1fr;
+
+    gap:24px;
+
+    margin-bottom:30px;
+
+}
+
+/* ======================================
+   Quick Actions
+====================================== */
+
+.quick-actions{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
+    margin-top:20px;
+
+}
+
+/* ======================================
+   Activity
+====================================== */
+
+.activity-list{
+
+    padding:0;
+
+    margin-top:20px;
+
+}
+
+.activity-list li{
+
+    list-style:none;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #E5E7EB;
+
+}
+
+/* ======================================
+   Analytics
+====================================== */
+
+.analytics-placeholder{
+
+    height:280px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:16px;
+
+    background:#EEF2FF;
+
+    color:#64748B;
+
+    font-size:22px;
+
+}

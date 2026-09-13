@@ -1,0 +1,157 @@
+{% extends "layouts/base.html" %} {% block title %}Register Student{% endblock
+%} {% block content %}
+
+<!-- Page Header -->
+<div class="page-header">
+  <h2>Register Student</h2>
+  <p>Add a new student to CAMP ERP.</p>
+</div>
+
+<div class="erp-card">
+  <form action="#" method="POST">
+    <!-- ==========================
+             Basic Information
+        ========================== -->
+
+    <div class="form-section">
+      <div class="section-title">
+        <i class="bi bi-person-fill"></i>
+        <h5>Basic Information</h5>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">Student Name</label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            placeholder="Enter student name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="university_roll_number"> University Roll Number </label>
+
+          <input
+            type="text"
+            id="university_roll_number"
+            name="university_roll_number"
+            class="form-control"
+            placeholder="Enter university roll number"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+             Academic Information
+        ========================== -->
+
+    <div class="form-section">
+      <div class="section-title">
+        <i class="bi bi-mortarboard-fill"></i>
+        <h5>Academic Information</h5>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="branch">Program</label>
+
+          <input
+            type="text"
+            id="branch"
+            name="branch"
+            class="form-control"
+            placeholder="Enter program"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="year">Year</label>
+
+          <select id="year" name="year" class="form-control" required>
+            <option value="">Select Year</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="section">Section</label>
+
+          <input
+            type="text"
+            id="section"
+            name="section"
+            class="form-control"
+            placeholder="Enter section"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+             Contact Information
+        ========================== -->
+
+    <div class="form-section">
+      <div class="section-title">
+        <i class="bi bi-telephone-fill"></i>
+        <h5>Contact Information</h5>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="email">Email</label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            class="form-control"
+            placeholder="Enter phone number"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+             Form Actions
+        ========================== -->
+
+    <div class="form-actions">
+      <a href="/students" class="btn btn-secondary"> Cancel </a>
+
+      <button type="submit" class="btn-primary-custom">
+        <i class="bi bi-person-plus-fill"></i>
+
+        Register Student
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

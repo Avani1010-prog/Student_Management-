@@ -1,0 +1,82 @@
+<%- include('../components/header.ejs') %>
+<%- include('../components/sidebar.ejs') %>
+
+<div class="main-wrapper">
+  <%- include('../components/navbar.ejs') %>
+
+  <main class="content">
+    <% if (messages && messages.warning) { %>
+      <div class="alert alert-warning alert-dismissible fade show mb-4"><%= messages.warning %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    <% } %>
+
+    <div class="student-header mb-4">
+      <div class="header-info">
+        <h2>Register Teacher</h2>
+        <p>Enter details to add a new faculty member to the ERP.</p>
+      </div>
+    </div>
+
+    <div class="erp-card">
+      <form action="/teachers/register" method="POST">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Employee ID</label>
+            <input type="text" name="employee_id" class="form-control" placeholder="e.g. EMP101" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Full Name</label>
+            <input type="text" name="name" class="form-control" placeholder="e.g. Prof. Ramesh Kumar" required />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Gender</label>
+            <select name="gender" class="form-select" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Department</label>
+            <select name="department" class="form-select" required>
+              <option value="CSE">Computer Science & Engineering</option>
+              <option value="ECE">Electronics & Communication</option>
+              <option value="ME">Mechanical Engineering</option>
+              <option value="CE">Civil Engineering</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Designation</label>
+            <input type="text" name="designation" class="form-control" placeholder="e.g. Assistant Professor" value="Assistant Professor" required />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Employment Type</label>
+            <select name="employment_type" class="form-select" required>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Guest">Guest Faculty</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email Address (Login Username)</label>
+            <input type="email" name="email" class="form-control" placeholder="e.g. teacher@camp.com" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone Number (10 Digits)</label>
+            <input type="text" name="phone" class="form-control" placeholder="e.g. 9876543210" required />
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Assign Teacher Login Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Default: teacher123 (or set custom password)" value="teacher123" required />
+          </div>
+        </div>
+
+        <div class="mt-4 text-end">
+          <a href="/teachers" class="btn btn-secondary me-2">Cancel</a>
+          <button type="submit" class="btn-primary-custom">Register Teacher</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../components/footer.ejs') %>
+</div>

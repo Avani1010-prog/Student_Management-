@@ -1,0 +1,268 @@
+/* ======================================
+   Responsive Design
+====================================== */
+
+
+/* Laptop */
+
+@media (max-width:1200px){
+
+    .stats-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+/* Tablet */
+
+@media (max-width:992px){
+
+    .sidebar{
+
+        width:90px;
+
+    }
+
+    .main-wrapper{
+
+        margin-left:90px;
+
+    }
+
+    .sidebar-header h3,
+    .sidebar-header p,
+    .menu-item span,
+    .sidebar-footer{
+
+        display:none;
+
+    }
+
+    .menu-item{
+
+        justify-content:center;
+
+    }
+
+    .logo{
+
+        width:55px;
+
+        height:55px;
+
+        font-size:24px;
+
+    }
+
+    .dashboard-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .sidebar{
+
+        position:fixed;
+
+        left:-280px;
+
+        transition:0.3s;
+
+    }
+
+    .sidebar.active{
+
+        left:0;
+
+    }
+
+    .main-wrapper{
+
+        margin-left:0;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .quick-actions{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .top-navbar{
+
+        padding:0 15px;
+
+    }
+
+    .content{
+
+        padding:20px;
+
+    }
+
+}
+
+
+/* Small Phones */
+
+@media (max-width:480px){
+
+    .page-title{
+
+        font-size:18px;
+
+    }
+
+    .welcome-card h2{
+
+        font-size:24px;
+
+    }
+
+}
+
+/* ======================================
+   Student Module Responsive
+====================================== */
+
+/* Laptop */
+
+@media (max-width:1200px){
+
+    .col-section{
+
+        display:none;
+
+    }
+
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+    .student-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .student-count{
+
+        align-self:flex-start;
+
+    }
+
+    .action-bar .text-md-end{
+
+        text-align:left !important;
+
+    }
+
+    .add-btn{
+
+        width:100%;
+
+    }
+
+    .col-year,
+    .col-section{
+
+        display:none;
+
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .student-header h2{
+
+        font-size:28px;
+
+    }
+
+    .student-header{
+
+        gap:15px;
+
+    }
+
+    .student-count{
+
+        font-size:15px;
+
+    }
+
+    .search-box input{
+
+        height:52px;
+
+    }
+
+    .add-btn{
+
+        width:100%;
+
+    }
+
+    .col-program,
+    .col-year,
+    .col-section{
+
+        display:none;
+
+    }
+
+}
+
+/* Small Phones */
+
+@media (max-width:480px){
+
+    .student-header h2{
+
+        font-size:24px;
+
+    }
+
+    .student-count{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .student-table th,
+    .student-table td{
+
+        padding:12px;
+
+        font-size:14px;
+
+    }
+
+}

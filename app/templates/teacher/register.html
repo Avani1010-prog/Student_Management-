@@ -1,0 +1,193 @@
+{% extends "layouts/base.html" %} {% block title %}Register Teacher{% endblock
+%} {% block content %}
+
+<div class="page-header">
+  <h2>Register Teacher</h2>
+
+  <p>Add a new teacher to CAMP ERP.</p>
+</div>
+
+<div class="erp-card">
+  <form action="/teachers/register" method="POST">
+    <!-- ==========================
+             Basic Information
+        ========================== -->
+
+    <div class="form-section">
+      <h4>
+        <i class="bi bi-person-fill"></i>
+        Basic Information
+      </h4>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Employee ID</label>
+
+          <input
+            type="text"
+            name="employee_id"
+            class="form-control"
+            placeholder="Enter employee ID"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Full Name</label>
+
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Enter full name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Gender</label>
+
+          <select name="gender" class="form-control" required>
+            <option value="">Select Gender</option>
+
+            <option>Male</option>
+
+            <option>Female</option>
+
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+             Professional Information
+        ========================== -->
+
+    <div class="form-section">
+      <h4>
+        <i class="bi bi-mortarboard-fill"></i>
+        Professional Information
+      </h4>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Department</label>
+
+          <select name="department" class="form-control" required>
+            <option value="">Select Department</option>
+
+            <option>Computer Science Engineering</option>
+
+            <option>Information Technology</option>
+
+            <option>Electronics Engineering</option>
+
+            <option>Mechanical Engineering</option>
+
+            <option>Civil Engineering</option>
+
+            <option>Electrical Engineering</option>
+
+            <option>Business Administration</option>
+
+            <option>Mathematics</option>
+
+            <option>Physics</option>
+
+            <option>Chemistry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Designation</label>
+
+          <select name="designation" class="form-control" required>
+            <option value="">Select Designation</option>
+
+            <option>Professor</option>
+
+            <option>Associate Professor</option>
+
+            <option>Assistant Professor</option>
+
+            <option>Lecturer</option>
+
+            <option>Lab Instructor</option>
+
+            <option>Head of Department (HOD)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Employment Type</label>
+
+          <select name="employment_type" class="form-control" required>
+            <option value="">Select Employment Type</option>
+
+            <option>Permanent</option>
+
+            <option>Contract</option>
+
+            <option>Guest Faculty</option>
+
+            <option>Visiting Faculty</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+             Contact Information
+        ========================== -->
+
+    <div class="form-section">
+      <h4>
+        <i class="bi bi-telephone-fill"></i>
+        Contact Information
+      </h4>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Email</label>
+
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+
+          <input
+            type="text"
+            name="phone"
+            class="form-control"
+            placeholder="Enter phone number"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================
+             Buttons
+        ========================== -->
+
+    <div class="form-actions">
+      <a href="/teachers" class="btn btn-secondary"> Cancel </a>
+
+      <button type="submit" class="btn-primary-custom">
+        <i class="bi bi-person-plus-fill"></i>
+
+        Register Teacher
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

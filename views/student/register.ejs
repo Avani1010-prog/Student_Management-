@@ -1,0 +1,71 @@
+<%- include('../components/header.ejs') %>
+<%- include('../components/sidebar.ejs') %>
+
+<div class="main-wrapper">
+  <%- include('../components/navbar.ejs') %>
+
+  <main class="content">
+    <% if (messages && messages.warning) { %>
+      <div class="alert alert-warning alert-dismissible fade show mb-4"><%= messages.warning %><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    <% } %>
+
+    <div class="student-header mb-4">
+      <div class="header-info">
+        <h2>Register Student</h2>
+        <p>Enter academic and personal details to register a new student.</p>
+      </div>
+    </div>
+
+    <div class="erp-card">
+      <form action="/register" method="POST">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Full Name</label>
+            <input type="text" name="name" class="form-control" placeholder="e.g. Rahul Sharma" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">University Roll Number</label>
+            <input type="text" name="university_roll_number" class="form-control" placeholder="e.g. 210001" required />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Branch / Department</label>
+            <select name="branch" class="form-select" required>
+              <option value="CSE">Computer Science & Engineering (CSE)</option>
+              <option value="ECE">Electronics & Communication (ECE)</option>
+              <option value="ME">Mechanical Engineering (ME)</option>
+              <option value="CE">Civil Engineering (CE)</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Academic Year</label>
+            <select name="year" class="form-select" required>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3" selected>3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Section</label>
+            <input type="text" name="section" class="form-control" placeholder="e.g. A" value="A" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" class="form-control" placeholder="e.g. student@college.edu" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone Number (10 Digits)</label>
+            <input type="text" name="phone" class="form-control" placeholder="e.g. 9876543210" required />
+          </div>
+        </div>
+
+        <div class="mt-4 text-end">
+          <a href="/students" class="btn btn-secondary me-2">Cancel</a>
+          <button type="submit" class="btn-primary-custom">Register Student</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../components/footer.ejs') %>
+</div>

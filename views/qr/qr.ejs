@@ -1,0 +1,98 @@
+<%- include('../components/header.ejs') %>
+<%- include('../components/sidebar.ejs') %>
+
+<div class="main-wrapper">
+  <%- include('../components/navbar.ejs') %>
+
+  <main class="content">
+    <div class="student-header mb-4">
+      <div class="header-info">
+        <h2>QR Code Attendance Verification</h2>
+        <p>Dynamic QR Code session for classroom attendance verification (Version 0.9 Module).</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- QR Display Card -->
+      <div class="col-lg-6">
+        <div class="erp-card text-center p-4">
+          <h4><i class="bi bi-qr-code text-primary me-2"></i> Dynamic Session QR Code</h4>
+          <p class="text-muted small">Students scan this QR code using the CAMP mobile app or scanner to register attendance.</p>
+          
+          <% if (qrSession) { %>
+            <div class="my-4 p-3 bg-white d-inline-block rounded shadow-sm border">
+              <img src="<%= qrSession.qrDataUrl %>" alt="QR Session Code" class="img-fluid" style="max-width: 250px;">
+            </div>
+            <div>
+              <p class="mb-1"><strong>Session Token:</strong> <code><%= qrSession.token %></code></p>
+              <p class="text-success small"><i class="bi bi-clock-history me-1"></i> Valid until: <%= new Date(qrSession.validUntil).toLocaleTimeString() %></p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- QR Scan Simulator -->
+      <div class="col-lg-6">
+        <div class="erp-card">
+          <h4><i class="bi bi-upc-scan text-success me-2"></i> Scan & Verify Attendance</h4>
+          <p class="text-muted small">Simulate scanning a student's QR token or roll number for attendance verification.</p>
+          
+          <form id="qrScanForm" class="mt-3">
+            <div class="mb-3">
+              <label class="form-label">QR Token</label>
+              <input type="text" id="scanToken" class="form-control" value="<%= qrSession ? qrSession.token : '' %>" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Student University Roll Number</label>
+              <input type="text" id="scanRollNumber" class="form-control" placeholder="e.g. 210001" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Subject Code</label>
+              <input type="text" id="scanSubjectCode" class="form-control" value="CS301" required>
+            </div>
+            <button type="submit" class="btn-primary-custom w-100">
+              <i class="bi bi-check2-circle me-1"></i> Verify & Mark Attendance
+            </button>
+          </form>
+
+          <div id="scanResult" class="mt-3" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../components/footer.ejs') %>
+</div>
+
+<script>
+document.getElementById('qrScanForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const token = document.getElementById('scanToken').value;
+  const roll_number = document.getElementById('scanRollNumber').value;
+  const subject_code = document.getElementById('scanSubjectCode').value;
+
+  const resultDiv = document.getElementById('scanResult');
+  resultDiv.style.display = 'block';
+  resultDiv.className = 'alert alert-info';
+  resultDiv.innerText = 'Verifying QR code...';
+
+  try {
+    const res = await fetch('/qr/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, roll_number, subject_code })
+    });
+    const data = await res.json();
+    if (data.success) {
+      resultDiv.className = 'alert alert-success';
+      resultDiv.innerText = '✅ ' + data.message;
+    } else {
+      resultDiv.className = 'alert alert-danger';
+      resultDiv.innerText = '❌ ' + data.message;
+    }
+  } catch (err) {
+    resultDiv.className = 'alert alert-danger';
+    resultDiv.innerText = '❌ Error submitting scan request.';
+  }
+});
+</script>

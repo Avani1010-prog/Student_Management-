@@ -1,0 +1,15 @@
+/* ======================================
+   Footer
+====================================== */
+
+.footer{
+
+    background:white;
+
+    text-align:center;
+
+    padding:15px;
+
+    box-shadow:var(--shadow-sm);
+
+}

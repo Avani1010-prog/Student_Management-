@@ -1,0 +1,78 @@
+/* ==========================================================
+   CAMP Design System
+========================================================== */
+
+:root{
+
+    /* ==========================
+       Brand Colors
+    ========================== */
+
+    --primary-color:#2563EB;
+    --primary-hover:#1D4ED8;
+
+    --secondary-color:#64748B;
+
+    --success-color:#22C55E;
+    --warning-color:#F59E0B;
+    --danger-color:#EF4444;
+
+    --white:#FFFFFF;
+
+    --body-bg:#F4F7FC;
+    --card-bg:#FFFFFF;
+
+    --sidebar-bg:#1F2937;
+    --navbar-bg:#FFFFFF;
+
+    --text-primary:#1F2937;
+    --text-secondary:#6B7280;
+
+    --border-color:#E5E7EB;
+
+    /* ==========================
+       Glass Effect
+    ========================== */
+
+    --glass-bg:rgba(255,255,255,.12);
+    --glass-border:rgba(255,255,255,.18);
+
+    /* ==========================
+       Typography
+    ========================== */
+
+    --font-family:'Poppins',sans-serif;
+
+    /* ==========================
+       Layout
+    ========================== */
+
+    --sidebar-width:280px;
+    --navbar-height:70px;
+
+    --content-padding:30px;
+
+    /* ==========================
+       Border Radius
+    ========================== */
+
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:20px;
+    --radius-xl:24px;
+
+    /* ==========================
+       Shadows
+    ========================== */
+
+    --shadow-sm:0 4px 12px rgba(0,0,0,.08);
+    --shadow-md:0 10px 25px rgba(0,0,0,.10);
+    --shadow-lg:0 18px 40px rgba(0,0,0,.15);
+
+    /* ==========================
+       Animation
+    ========================== */
+
+    --transition:all .3s ease;
+
+}

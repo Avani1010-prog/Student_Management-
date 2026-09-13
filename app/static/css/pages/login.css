@@ -1,0 +1,262 @@
+/* ==========================================================
+   LOGIN PAGE
+   CAMP - Authentication
+========================================================== */
+
+/* ==========================
+   Full Page
+========================== */
+
+.login-page{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background:url("../../images/backgrounds/college-bg.jpeg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+}
+
+
+/* ==========================
+   Dark Overlay
+========================== */
+
+.overlay{
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+        135deg,
+        rgba(10,20,40,.78),
+        rgba(20,40,70,.55)
+    );
+
+    backdrop-filter: blur(2px);
+
+}
+
+
+/* ==========================
+   Container
+========================== */
+
+.login-container{
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 540px;
+
+    padding: 30px;
+
+    z-index: 2;
+
+}
+
+
+/* ==========================
+   Glass Card
+========================== */
+
+.login-card{
+
+    background:var(--glass-bg);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid var(--glass-border);
+
+    border-radius:var(--radius-lg);
+
+    padding:50px;
+
+    color:white;
+
+    box-shadow:var(--shadow-lg);
+
+    animation:fadeUp .8s ease;
+
+}
+
+
+/* ==========================
+   Logo Section
+========================== */
+
+.logo-section h2{
+
+    font-size:58px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    margin-bottom:10px;
+
+}
+
+.logo-circle{
+
+    width:100px;
+    height:100px;
+
+    margin:auto;
+    margin-bottom:20px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(255,255,255,.15);
+
+    border:1px solid rgba(255,255,255,.20);
+
+    font-size:44px;
+
+    box-shadow:0 8px 25px rgba(255,255,255,.12);
+
+}
+
+.logo-section h2{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+
+}
+
+.logo-section p{
+
+    font-size:15px;
+
+    opacity:.9;
+
+    line-height:1.6;
+
+}
+
+
+/* ==========================
+   Heading
+========================== */
+
+.login-card h4{
+
+    font-weight:700;
+
+    margin-bottom:30px;
+
+}
+
+
+/* ==========================
+   Footer
+========================== */
+
+.copyright{
+
+    margin-top:30px;
+
+    text-align:center;
+
+    font-size:14px;
+
+    opacity:.8;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ======================================
+   Login Button
+====================================== */
+
+.btn-login{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--primary-color);
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    transition:var(--transition);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.btn-login:hover{
+
+    background:var(--primary-hover);
+
+}
+
+.btn-login:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}

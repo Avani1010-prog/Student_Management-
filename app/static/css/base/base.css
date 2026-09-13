@@ -1,0 +1,89 @@
+/* ======================================
+   Google Font
+====================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ======================================
+   CSS Reset
+====================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:var(--font-family);
+    background:#F4F7FC;
+    color:var(--text-color);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+}
+
+ul{
+    list-style:none;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button{
+    border:none;
+    outline:none;
+    cursor:pointer;
+    background:none;
+}
+
+input,
+select,
+textarea{
+    outline:none;
+}
+
+/* ======================================
+   Application Layout
+====================================== */
+
+.app-container{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+.main-wrapper{
+
+    flex:1;
+
+    margin-left:280px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:100vh;
+
+}
+
+.content{
+
+    flex:1;
+
+    padding:35px;
+
+    overflow-y:auto;
+
+}

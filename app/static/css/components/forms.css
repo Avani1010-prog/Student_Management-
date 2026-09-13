@@ -1,0 +1,83 @@
+/* ==========================================
+   CAMP - Forms
+========================================== */
+
+.form-control {
+
+    height: 52px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    background: rgba(255,255,255,.90);
+
+    font-size: 15px;
+
+    transition: all .3s ease;
+
+    box-shadow: none;
+
+}
+
+.form-control::placeholder {
+
+    color: #8B909A;
+
+}
+
+.form-control:focus {
+
+    border-color: var(--primary-color);
+
+    box-shadow: 0 0 0 .25rem rgba(37,99,235,.18);
+
+    background: #fff;
+
+}
+
+.password-wrapper{
+
+    position:relative;
+
+}
+
+.password-toggle{
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    color:#64748B;
+
+    cursor:pointer;
+
+}
+
+.password-toggle:hover{
+
+    color:var(--primary-color);
+
+}
+
+.error-message{
+
+    display:block;
+
+    color:var(--danger-color);
+
+    font-size:13px;
+
+    margin-top:6px;
+
+    min-height:18px;
+
+}

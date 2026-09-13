@@ -1,0 +1,125 @@
+/* ======================================
+   Top Navbar
+====================================== */
+
+.top-navbar{
+
+    height:70px;
+
+    background:var(--navbar-color);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.navbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.menu-toggle{
+
+    font-size:24px;
+
+    color:var(--text-color);
+
+}
+
+.page-title{
+
+    margin:0;
+
+    font-weight:600;
+
+}
+
+.navbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.icon-btn{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+}
+
+.icon-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.profile-img{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    background:var(--primary-color);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:20px;
+
+}
+
+.profile h6{
+
+    margin:0;
+
+    font-weight:600;
+
+}
+
+.profile small{
+
+    color:var(--text-light);
+
+}

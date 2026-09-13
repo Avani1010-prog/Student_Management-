@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="welcome-card erp-card">
+
+    <div>
+        <h2>👋 Welcome Back, Admin</h2>
+
+        <p>
+            Smart Attendance Powered by Face Recognition &
+            QR Verification
+        </p>
+    </div>
+
+</div>
+
+
+<div class="stats-grid">
+
+    <div class="erp-card stat-card">
+
+        <i class="bi bi-people-fill"></i>
+
+        <h5>Total Students</h5>
+
+        <h2>248</h2>
+
+    </div>
+
+    <div class="erp-card stat-card">
+
+        <i class="bi bi-person-check-fill"></i>
+
+        <h5>Present Today</h5>
+
+        <h2>210</h2>
+
+    </div>
+
+    <div class="erp-card stat-card">
+
+        <i class="bi bi-person-x-fill"></i>
+
+        <h5>Absent Today</h5>
+
+        <h2>38</h2>
+
+    </div>
+
+    <div class="erp-card stat-card">
+
+        <i class="bi bi-mortarboard-fill"></i>
+
+        <h5>Faculty</h5>
+
+        <h2>18</h2>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-row">
+
+    <div class="erp-card">
+
+        <h4 class="section-title">
+            Quick Actions
+        </h4>
+
+        <div class="quick-actions">
+
+            <a href="/register" class="btn-primary-custom">
+                Register Student
+            </a>
+
+            <a href="/attendance" class="btn-primary-custom">
+                Take Attendance
+            </a>
+
+            <a href="/qr" class="btn-primary-custom">
+                QR Verification
+            </a>
+
+            <a href="/reports" class="btn-primary-custom">
+                Reports
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="erp-card">
+
+        <h4 class="section-title">
+            Recent Activity
+        </h4>
+
+        <ul class="activity-list">
+
+            <li>✔ Rahul Sharma registered successfully.</li>
+
+            <li>✔ Attendance marked for CSE-A.</li>
+
+            <li>✔ QR generated for 12 students.</li>
+
+            <li>✔ Monthly report exported.</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+<div class="erp-card">
+
+    <h4 class="section-title">
+        Attendance Analytics
+    </h4>
+
+    <div class="analytics-placeholder">
+
+        📊 Charts will be added in Sprint 5
+
+    </div>
+
+</div>
+
+{% endblock %}
