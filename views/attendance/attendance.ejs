@@ -60,17 +60,48 @@
         </div>
       </div>
 
-      <!-- AI Face Rec Card -->
+      <!-- AI Face Rec WebCam Card (Works on Cloud & Local) -->
       <div class="col-lg-5">
-        <div class="erp-card bg-light border text-center h-100 d-flex flex-column justify-content-center p-4">
-          <i class="bi bi-camera-fill text-primary display-4 mb-2"></i>
-          <h4>AI Face Recognition</h4>
-          <p class="text-muted small">Launch Python OpenCV webcam detector to recognize students and auto-log attendance.</p>
-          <form action="/attendance/trigger-face-rec" method="POST">
-            <button type="submit" class="btn btn-outline-primary btn-lg w-100 mt-2">
-              <i class="bi bi-play-circle-fill me-2"></i> Launch Face Rec Camera
+        <div class="erp-card bg-white border shadow-sm p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h4 class="mb-0"><i class="bi bi-person-bounding-box text-primary me-2"></i> Face Attendance</h4>
+              <span class="badge bg-success-subtle text-success px-2 py-1"><i class="bi bi-camera-fill me-1"></i> Live WebCam</span>
+            </div>
+            <p class="text-muted small mb-3">Live camera face detection. Works on Mobile, Laptop & Cloud Deployed URLs.</p>
+
+            <!-- Camera Preview Box -->
+            <div class="position-relative bg-dark rounded-3 overflow-hidden mb-3 text-center" style="min-height: 220px;">
+              <video id="adminWebcamVideo" style="width: 100%; max-height: 220px; border-radius: 8px; transform: scaleX(-1);" autoplay playsinline muted></video>
+              <canvas id="adminCanvas" style="display:none;"></canvas>
+              <div id="adminScanOverlay" class="position-absolute top-50 start-50 translate-middle border border-2 border-primary rounded-circle" style="width: 130px; height: 160px; pointer-events: none; border-style: dashed !important; box-shadow: 0 0 0 9999px rgba(0,0,0,0.3);"></div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Select Subject for Attendance</label>
+              <select id="adminSubjectCode" class="form-select form-select-sm">
+                <% subjects.forEach(sub => { %>
+                  <option value="<%= sub.code %>"><%= sub.name %> (<%= sub.code %>)</option>
+                <% }) %>
+              </select>
+            </div>
+
+            <div id="adminScanStatusAlert" class="alert alert-info py-2 small text-center mb-3">
+              <i class="bi bi-info-circle me-1"></i> WebCam ready. Position face inside circle & click Scan.
+            </div>
+          </div>
+
+          <div>
+            <button type="button" id="adminStartScanBtn" class="btn btn-primary btn-lg w-100 mb-2">
+              <i class="bi bi-camera-fill me-2"></i> Scan Face & Mark Attendance
             </button>
-          </form>
+
+            <form action="/attendance/trigger-face-rec" method="POST" class="mt-2 text-center">
+              <button type="submit" class="btn btn-link btn-sm text-decoration-none text-muted">
+                <i class="bi bi-window me-1"></i> Or Launch OpenCV Python Window (Local Only)
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -126,6 +157,78 @@
       </div>
     </div>
   </main>
+
+  <script>
+    const adminVideo = document.getElementById('adminWebcamVideo');
+    const adminCanvas = document.getElementById('adminCanvas');
+    const adminStartScanBtn = document.getElementById('adminStartScanBtn');
+    const adminScanStatusAlert = document.getElementById('adminScanStatusAlert');
+    const adminSubjectCode = document.getElementById('adminSubjectCode');
+
+    async function initAdminCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 480, height: 360, facingMode: "user" }
+        });
+        adminVideo.srcObject = stream;
+      } catch (err) {
+        console.error("Admin Camera error:", err);
+        adminScanStatusAlert.className = 'alert alert-warning py-2 small text-center mb-3';
+        adminScanStatusAlert.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i> WebCam unavailable. Please allow camera permissions in browser.';
+      }
+    }
+
+    if (adminStartScanBtn) {
+      adminStartScanBtn.addEventListener('click', async () => {
+        if (!adminVideo.srcObject) {
+          await initAdminCamera();
+          if (!adminVideo.srcObject) return;
+        }
+
+        const ctx = adminCanvas.getContext('2d');
+        adminCanvas.width = adminVideo.videoWidth || 480;
+        adminCanvas.height = adminVideo.videoHeight || 360;
+
+        ctx.translate(adminCanvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(adminVideo, 0, 0, adminCanvas.width, adminCanvas.height);
+
+        const photoDataUrl = adminCanvas.toDataURL('image/jpeg', 0.9);
+
+        adminScanStatusAlert.className = 'alert alert-info py-2 small text-center mb-3';
+        adminScanStatusAlert.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Scanning face & verifying student...';
+        adminStartScanBtn.disabled = true;
+
+        try {
+          const response = await fetch('/attendance/api/scan-and-match-face', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              photo_data: photoDataUrl,
+              subject_code: adminSubjectCode ? adminSubjectCode.value : 'GEN'
+            })
+          });
+
+          const data = await response.json();
+          if (data.success) {
+            adminScanStatusAlert.className = 'alert alert-success py-2 small text-center mb-3';
+            adminScanStatusAlert.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ${data.message}`;
+            setTimeout(() => window.location.reload(), 1500);
+          } else {
+            adminScanStatusAlert.className = 'alert alert-danger py-2 small text-center mb-3';
+            adminScanStatusAlert.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> ${data.message}`;
+          }
+        } catch (err) {
+          adminScanStatusAlert.className = 'alert alert-danger py-2 small text-center mb-3';
+          adminScanStatusAlert.innerHTML = '<i class="bi bi-x-circle-fill me-1"></i> Network error matching face.';
+        } finally {
+          adminStartScanBtn.disabled = false;
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', initAdminCamera);
+  </script>
 
   <%- include('../components/footer.ejs') %>
 </div>
